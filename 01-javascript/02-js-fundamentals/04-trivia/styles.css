@@ -1,0 +1,52 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.container{
+    padding: 20px;
+}
+
+.top_row{
+    height:50px;
+}
+
+.top_row h2{
+    border: 1px solid grey;
+    padding:10px;
+    background-color:lightblue;
+    float:right;
+    margin-left:auto;
+}
+
+.title_row{
+    text-align:center;
+}
+
+.row{
+    text-align: center;
+    padding:10px;
+}
+
+.col{
+    display: inline-block;
+    padding-right:30px;
+}
+
+.col h4 {
+    background-color:yellow;
+    padding:5px;
+    width: 200px;
+    margin:auto;
+}
+
+.quizblock{
+    border-style: double;
+    background-color:azure;
+    width:200px;
+    height:150px;
+    border-radius: 10px;
+    margin:10px auto 10px auto;
+    line-height:150px;
+}
