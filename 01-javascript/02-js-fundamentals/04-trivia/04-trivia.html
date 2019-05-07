@@ -1,19 +1,18 @@
-<!-- 2 hours -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="script.js"></script>
+    <link rel="stylesheet" href="styles.css">
     <title>Trivia Night</title>
 </head>
 <body>
     <div class="container">
         <div class="top_row">
-            <a href="#">Continue with new questions</a>
+            <a href=".">Continue with new questions</a>
             <h2 class="point_tally"></h2>
         </div>
         <div class="title_row">
@@ -22,63 +21,22 @@
         <div class="row">
             <div class="col">
                 <h4 class="category1"></h4>
-                <div class="flip-card">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <p class="points"></p>
-                        </div>
-                        <div class="flip-card-back">
-                            <h5 class="question"></h5>
-                            <form action="/">
-                                <input type="radio" value="1">option 1
-                                <input type="radio" value="2">option 2
-                                <input type="radio" value="3">option 3
-                                <input type="radio" value="4">option 4
-                                <input type="submit" value="Submit">
-                            </form>
-                        </div>    
-                    </div>
-                </div>
-                <!-- <div class="multchoiceblock">
-                    <p>question</p>
-                    <p></p>
-                    <p></p>
-                    <p></p>
-                    <p></p>
-                </div>
-                <div class="truefalseblock">
-                    <p>question</p>
-                    <p>true</p>
-                    <p>false</p>
-                </div> -->
-                <div class="valueblock">
-                    <p class="points"></p>
-                </div>
+                <div id="c1q1" class="question"></div>    
+                <div id="c1q2" class="question"></div>
+                <div id="c1q3" class="question"></div>
             </div>
-            <!-- <div class="col">
+            <div class="col">
                 <h4 class="category2"></h4>
-                <div class="valueblock">
-                    <p>value</p>
-                </div>
-                <div class="valueblock">
-                        <p>value</p>
-                </div>
-                <div class="valueblock">
-                    <p>value</p>
-                </div>
+                <div id="c2q1" class="question"></div>    
+                <div id="c2q2" class="question"></div>
+                <div id="c2q3" class="question"></div>
             </div>
             <div class="col">
                 <h4 class="category3"></h4>
-                <div class="valueblock">
-                    <p>value</p>
-                </div>
-                <div class="valueblock">
-                    <p>value</p>
-                </div>
-                <div class="valueblock">
-                    <p>value</p>
-                </div>
-            </div> -->
+                <div id="c3q1" class="question"></div>    
+                <div id="c3q2" class="question"></div>
+                <div id="c3q3" class="question"></div>
+            </div>
         </div>      
     </div>
 </body>
