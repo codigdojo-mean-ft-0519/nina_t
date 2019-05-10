@@ -15,14 +15,18 @@ app.get("/", function (request,response){
     response.render('index');
 });
 
-app.get("/result",function(request, response){
+// app.post('/process',function (request, response){
+//     console.log(request);
+//     response.redirect("/result");
+// });
+
+app.post("/result",function(request, response){
     console.log("here are our results!");
-    response.render("result.ejs");
+    console.log(request.body);
+    const user_info = {name: request.body.full_name, location: request.body.dojo_location, language: request.body.fav_language, comment: request.body.comment} 
+    console.log(`Our users' name is ${request.body.full_name}`)
+    response.render("result.ejs",{user: user_info});
 });
 
-app.post('/process',function (request, response){
-    console.log(request);
-    response.redirect("/result");
-});
 
 app.listen(port, () => console.log(`express server listening on port ${port}`)); 
