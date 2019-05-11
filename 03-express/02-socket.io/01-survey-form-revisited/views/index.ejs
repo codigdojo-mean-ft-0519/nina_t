@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/styles.css">
+    <title>Survey Form</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type ="text/javascript">
+        $(document).ready(function (){
+        	// triggers the connection event in our server!
+            var socket = io.connect();
+            // submit data to the server using emit
+            $('#survey_form').submit(function(e) {
+        		e.preventDefault();
+				socket.emit("posting_form", {
+				  	name: $('#name').val(),
+                    location: $('#location').val(),
+                    language: $('#language').val(),
+                    comment: $('#comment').val()
+                });
+			});
+        	//display the emit response of the server called "updated_message" and "random_number"
+			socket.on('updated_message', function (data){
+			    $('#message').html("You emitted the following information to the server: " + JSON.stringify(data.response));
+			});
+			socket.on('random_number', function (data){
+			   $('#number').html("Your lucky number emitted by the server is : " + JSON.stringify(data.response));
+			});
+        });
+    </script>
+</head>
+<body>
+    <div class="group_alert">
+        <p id="message"></p>
+        <p id="number"></p>
+    </div>
+    <div class="container">
+        <form action="" id="survey_form" autocomplete="off">
+            <div class="row">
+                <div class="col-35">
+                    <label for="full_name">Your Name:</label>
+                </div>
+                <div class="col-65">
+                    <input type="text" id="name" name="full_name">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-35">
+                    <label for="dojo_location">Dojo Location:</label>
+                </div>
+                <div class="col-65">
+                    <select id="location" name="dojo_location">
+                        <option value="Seattle">Seattle</option>
+                        <option value="Online">Online</option>
+                        <option value="Dallas">Dallas</option>
+                        <option value="Mountain View">Mountain View</option>
+                        <option value="San Jose">San Jose</option>
+                        <option value="TC">TC</option>
+                        <option value="Chicago">Chicago</option>
+                        <option value="Tulsa">Tulsa</option>
+                        <option value="Berkeley">Berkeley</option>
+                        <option value="Boise">Boise</option>
+                        <option value="OC">OC</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-35">
+                    <label for="fav_language">Favorite Language:</label>
+                </div>
+                <div class="col-65">
+                    <select id="language" name="fav_language">
+                        <option value="Javascript">Javascript</option>
+                        <option value="Python">Python</option>
+                        <option value="C#">C#</option>
+                        <option value="Node">Node</option>
+                        <option value="C++">C++</option>
+                        <option value="Java">Java</option>
+                        <option value="CSS">CSS</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-35">
+                    <label for="comment">Comment (optional):</label>
+                </div>
+                <div class="col-65">
+                    <textarea id="comment" name="comment" placeholder="Write something.." style="height:200px"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <input class="btn" type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+</body>
+</html>
