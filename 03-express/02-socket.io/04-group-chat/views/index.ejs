@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/styles.css">
+    <title>Broadcast Example</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type ="text/javascript">
+        $(document).ready(function (){
+            $(".message-container").hide();
+            var socket = io();
+            socket.on("prompt",function(){
+                var this_user;
+                var person = prompt("Your name:", "");
+                if (person == null || person == ""){
+                    //We gotta do something...maybe refresh the page?
+                    console.log("you suck");
+                }
+                else{
+                    this_user = person;
+                    $(".message-container").show();
+                    //Somehow you have to send the person information back to the server into an array of users to use it
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="message-container">
+            <h2>Conversation Board</h2>
+            <div class="chatroom">
+                <table class="messages">
+                    <tr>
+                        <td>Name:</td>
+                        <td>Message</td>
+                    </tr>
+                    <tr>
+                        <td>Name:</td>
+                        <td>Message</td>
+                    </tr>
+                </table>
+            </div>
+            <form action="/">
+                <textarea placeholder="enter your message here"></textarea>
+                <input class="btn" type=submit" value="Send">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
