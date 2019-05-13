@@ -13,6 +13,7 @@
             $(".message-container").hide();
             var socket = io();
             var visited = false;
+            var current_user = [];
             if (visited == false){
                 socket.emit("im_new_here");
             }
@@ -29,12 +30,18 @@
                 }
             });
             socket.on("return_user",function(data){
-                console.log("Our current user is: " + data.user.name);
-                console.log("Our messages so far are: "+data.messages);
+                current_user.push(data.user.name);
+                current_user.push(data.user.id);
+                for (message in data.all_messages){
+                    let content = data.all_messages[message].message;
+                    let author = data.all_messages[message].author+":";
+                    $(".messages").append("<tr>").append("<td>").addClass("author").append(author).append("<td>").addClass("the_message").append(content);
+                    }
             });
             $(".btn").click(function(){
                 var message_content = $("#message_content").val();
-                console.log("When we clicked, our content was "+message_content);
+                var messages_author = current_user[0];
+                var author_id = current_user[1];
                 if (message_content == undefined || message_content == ""){
                     $(".warning").append("Your message cannot be blank.");
                 }
@@ -42,14 +49,12 @@
                     if ($(".warning").text().length != 0){
                         $(".warning").empty();
                     }
-                    socket.emit("posting_message", {message: message_content}, function(data){
-                        console.log("Our message content was"+message_content);
+                    socket.emit("posting_message", {message: message_content, author: messages_author, author_id: author_id}, function(data){
                     });
                     $("#message_content").val("");
                 }
             });
             socket.on("new_message", function(data){
-                console.log(data);
                 let content = data.message.message;
                 let author = data.message.author+":";
                 $(".messages").append("<tr>").append("<td>").addClass("author").append(author).append("<td>").addClass("the_message").append(content);

@@ -37,19 +37,12 @@ io.on("connection", function(socket){
             id:socket.id
         };
         users_array.push(new_user);
-        socket.emit("return_user",{user:new_user});
+        socket.emit("return_user",{user:new_user, all_messages:messages_array});
     });
     socket.on("posting_message", function(data){
-        for (user in users_array){
-            //the problem lies here
-            if (users_array[user].id === socket.id){
-                var chat_content = {
-                    message: data.message, 
-                    author: users_array[user].name
-                }
-                break;
-            }
-        }
+        console.log("The message author is "+data.author)
+        console.log("The message author is "+data.author_id)
+        var chat_content = {message: data.message, author: data.author}
         messages_array.push(chat_content);
         io.emit("new_message",{message:chat_content, all_messages:messages_array})
     });
