@@ -12,18 +12,47 @@
         $(document).ready(function (){
             $(".message-container").hide();
             var socket = io();
+            var visited = false;
+            if (visited == false){
+                socket.emit("im_new_here");
+            }
             socket.on("prompt",function(){
-                var this_user;
                 var person = prompt("Your name:", "");
                 if (person == null || person == ""){
-                    //We gotta do something...maybe refresh the page?
-                    console.log("you suck");
+                    socket.emit("im_new_here");
                 }
                 else{
-                    this_user = person;
+                    var this_user = person;
                     $(".message-container").show();
-                    //Somehow you have to send the person information back to the server into an array of users to use it
+                    socket.emit("got_a_new_user", this_user, function(data){
+                    });
                 }
+            });
+            socket.on("return_user",function(data){
+                console.log("Our current user is: " + data.user.name);
+                console.log("Our messages so far are: "+data.messages);
+            });
+            $(".btn").click(function(){
+                var message_content = $("#message_content").val();
+                console.log("When we clicked, our content was "+message_content);
+                if (message_content == undefined || message_content == ""){
+                    $(".warning").append("Your message cannot be blank.");
+                }
+                else {
+                    if ($(".warning").text().length != 0){
+                        $(".warning").empty();
+                    }
+                    socket.emit("posting_message", {message: message_content}, function(data){
+                        console.log("Our message content was"+message_content);
+                    });
+                    $("#message_content").val("");
+                }
+            });
+            socket.on("new_message", function(data){
+                console.log(data);
+                let content = data.message.message;
+                let author = data.message.author+":";
+                $(".messages").append("<tr>").append("<td>").addClass("author").append(author).append("<td>").addClass("the_message").append(content);
             });
         });
     </script>
@@ -33,21 +62,11 @@
         <div class="message-container">
             <h2>Conversation Board</h2>
             <div class="chatroom">
-                <table class="messages">
-                    <tr>
-                        <td>Name:</td>
-                        <td>Message</td>
-                    </tr>
-                    <tr>
-                        <td>Name:</td>
-                        <td>Message</td>
-                    </tr>
-                </table>
+                <table class="messages"></table>
             </div>
-            <form action="/">
-                <textarea placeholder="enter your message here"></textarea>
-                <input class="btn" type=submit" value="Send">
-            </form>
+                <textarea id="message_content" name="message_content" placeholder="enter your message here"></textarea>
+                <button class="btn">Send</button>
+                <p class="warning"></p>
         </div>
     </div>
 </body>

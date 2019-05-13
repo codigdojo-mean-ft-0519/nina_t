@@ -21,10 +21,36 @@ app.get("/", function (request, response) {
     response.render("index");
 });
 
+var users_array = [];
+var messages_array = [];
+
 io.on("connection", function(socket){
     console.log("We're connected!");
     //I've got to make some logic that keeps track of whether or not the "this_user" is in our system yet.
-    socket.emit("prompt", function(){
+    socket.on("im_new_here", function(){
+        socket.emit("prompt", function(){
+        });
     });
-
+    socket.on("got_a_new_user", function(data){
+        let new_user = {
+            name:data,
+            id:socket.id
+        };
+        users_array.push(new_user);
+        socket.emit("return_user",{user:new_user});
+    });
+    socket.on("posting_message", function(data){
+        for (user in users_array){
+            //the problem lies here
+            if (users_array[user].id === socket.id){
+                var chat_content = {
+                    message: data.message, 
+                    author: users_array[user].name
+                }
+                break;
+            }
+        }
+        messages_array.push(chat_content);
+        io.emit("new_message",{message:chat_content, all_messages:messages_array})
+    });
 });
