@@ -80,7 +80,7 @@ app.get("/rabbits/edit/:id", function(request,response){
 
 //Should be the action attribute for the form in the above route
 app.post("/rabbits/:id", function(request, response){
-    Rabbit.update({ _id: request.params.id }, request.body)
+    Rabbit.update({ _id: request.params.id }, {name: request.body.name}, {breed: request.body.breed}, {age: request.body.age})
         .then(rabbit => {
             console.log(rabbit);
             response.redirect("/");
