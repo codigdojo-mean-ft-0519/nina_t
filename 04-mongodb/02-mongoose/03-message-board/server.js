@@ -59,6 +59,7 @@ const Comment = mongoose.model("Comment",CommentSchema);
 
 app.get("/", function(request,response){
     Message.find({})
+        .populate("comments")
         .then(messages => response.render("index", {messages}))
         .catch(console.log);
 });
@@ -77,23 +78,40 @@ app.post("/messages",function(request,response){
 });
 
 app.post("/comment/:id",function(request,response){
-    const messageId = request.params.id;
-	Message.findOne({ _id: messageId }, function(err, message) {
-        newComment = new Comment(request.body)
-        console.log(newComment);
-		newComment.message = message._id;
-		Message.update({ _id: message._id }, { $push: { comments: newComment }}, function(err) {
-		});
-		newComment.save(function(err) {
-			if (err) {
-				console.log(err);
-				response.render('index.ejs', { errors: newComment.errors });
-			} else {
-				console.log("comment added");
-				response.redirect("/");
-			}
-		});
-	});
+    Comment.create(request.body)
+        .then(comment =>{
+            //Return the promise (into the promise chain) when we look up the id of the message associated with this comment
+            return Message.findByIdAndUpdate(comment.message, { $push: { comments: comment }})
+                .then(message => {
+                    console.log("message saved successfully!", message);
+                    response.redirect("/");
+                })
+                .catch(error => {
+                    const errors = Object.keys(error.errors).map(key => error.errors[key].message);
+                    response.redirect("/");
+                });
+        })
+        .catch(error => {
+            const errors = Object.keys(error.errors).map(key => error.errors[key].message);
+            response.redirect("/");
+        })
+    //PLATFORM VERSION BELOW:
+    // const newComment = new Comment(request.body)
+    // console.log(newComment);
+    // newComment.save(function(err, comment) {
+    //     //.catch
+    //     if (err) {
+    //         console.log(err);
+    //         response.render('index.ejs', { errors: newComment.errors });
+    //     //.then
+    //     } else {
+    //         console.log("comment added");
+    //         Message.findByIdAndUpdate(comment.message, { $push: { comments: comment }}, function(err) {
+    //             console.log("message updated!", err);
+    //             response.redirect("/");
+    //         });
+    //     }
+	// });
 });
 
 mongoose.connection.on("connected", () => console.log("Connected to Mongo!"));

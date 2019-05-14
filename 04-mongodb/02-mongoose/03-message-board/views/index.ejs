@@ -22,12 +22,14 @@
         <div class="message-group">
             <h2>Name: <%=message.author%></h2>
             <h2>Message: <%=message.messageContent%></h2>
+
             <% for (const comment of message.comments) { %>
             <div class="comment-group">
                 <p>Name: <%=comment.author %> </p>
                 <p>Comment:<%=comment.commentContent %></p>
             <% } %>
                 <form action="/comment/<%=message._id %>" method="POST" autocomplete="off">
+                    <input type="hidden" name="message" value="<%=message._id %>">
                     <label for="name">Name:</label>
                     <input type="text" name="author">
                     <label for="comment">Message:</label>
