@@ -1,0 +1,57 @@
+*{
+    margin:0;
+    padding:0;
+    font-family: "Century Gothic",CenturyGothic,AppleGothic,sans-serif;
+}
+
+.container{
+    width:70%;
+    margin:10px auto 0px auto;
+}
+
+h1{
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+form{
+    margin:20px 0px 10px 0px;
+}
+
+label {
+    margin-top:20px;
+    margin-bottom:5px;
+    display:block;
+}
+
+input[type=text]{
+    border:2px solid black;
+    font-size:1em;
+    padding:5px;
+}
+
+input[type=submit]{
+    margin-top:10px;
+    display:block;
+    font-size:1em;
+    box-shadow: 2px 2px;
+    float:right;
+    background-color:lightseagreen;
+    padding:5px;
+}
+
+textarea{
+    border:2px solid black;
+    width:99%;
+    font-size:1em;
+    padding:5px;
+}
+
+.message-group{
+    margin-top:60px;
+    margin-bottom:30px;
+}
+
+.comment-group{
+    margin-top:15px;
+}
