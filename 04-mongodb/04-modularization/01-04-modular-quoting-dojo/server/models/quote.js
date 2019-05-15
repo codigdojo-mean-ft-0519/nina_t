@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
 const QuoteSchema = new Schema({
     author: {
@@ -18,4 +19,4 @@ const QuoteSchema = new Schema({
 },{timestamps: true}
 );
 
-const Quote = mongoose.model("Quotes",QuoteSchema);
+module.exports = mongoose.model("Quotes",QuoteSchema);

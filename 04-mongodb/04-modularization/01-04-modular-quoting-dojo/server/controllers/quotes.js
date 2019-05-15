@@ -13,7 +13,7 @@ module.exports = {
         })
         .catch(console.log);
     },
-    show: function(request, response){
+    show_all: function(request, response){
         Quote.find({})
         .then(quotes => response.render("quotes/index", {quotes: quotes}))
         .catch(console.log);

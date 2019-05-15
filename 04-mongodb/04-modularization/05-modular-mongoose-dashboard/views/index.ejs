@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/styles.css">
+    <title>Rabbits!!!</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Rabbits</h1>
+        <a href="/rabbits/new"><button>Add a New Rabbit!</button></a>
+        <table>
+            <thead>
+                <tr>
+                    <th>Rabbit Name</th>
+                    <th>Rabbit Breed</th>
+                    <th>Rabbit Age</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            <% for (const rabbit of rabbits) { %>
+                <tr>
+                    <td><a href="/rabbits/<%=rabbit._id%>"><%=rabbit.name%></a></td>
+                    <td><%=rabbit.breed%></td>
+                    <td><%=rabbit.age%></td>
+                    <td><a href="/rabbits/edit/<%=rabbit._id %>">Edit</a>  <a href="/rabbits/destroy/<%=rabbit._id%>">Delete</a></td>
+                </tr>
+            <% } %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
