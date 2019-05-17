@@ -5,7 +5,7 @@ module.exports = {
   //GET: Retrieve all Tasks
   index(request, response) {
     Task.find(request.body)
-      .then(task => response.json(tasks))
+      .then(tasks => response.json(tasks))
       .catch(error => response.json(error));
   },
   //GET: Retrieve a Task by ID
@@ -26,7 +26,7 @@ module.exports = {
         new: true
       })
       .then(task => response.json(task))
-      .catch(error => response.json(task))
+      .catch(error => response.json(error))
   },
   //DELETE: Delete a Task by ID
   destroy(request, response) {

@@ -7,6 +7,8 @@ const {
 } = process;
 const app = express();
 const bodyParser = require('body-parser');
+require('./server/config/database')
+require('./server/config/routes')(app);
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/public/dist/public')));
