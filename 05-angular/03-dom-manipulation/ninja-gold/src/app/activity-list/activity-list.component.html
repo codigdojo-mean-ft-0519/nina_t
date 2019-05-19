@@ -1,7 +1,11 @@
 <div class="container">
   <p>Activities:</p>
   <div class="activities">
-    <p class="green">Won gold</p>
+    <p *ngFor="let activity of activities" [class.green]="activity.goldAmt >= 0" [class.red]="activity.goldAmt < 0">
+      {{activity.goldAmt >=0 ? 'won' : 'lost'}} {{activity.goldAmt}} golds at the (locationId) {{activity.locationID}}
+      at
+      {{activity.createdAt}}</p>
+    <!-- <p class="green">Won gold</p>
     <p class="green">Won gold</p>
     <p class="green">Won gold</p>
     <p class="red">Lost gold</p>
@@ -9,6 +13,6 @@
     <p class="red">Lost gold</p>
     <p class="green">Won gold</p>
     <p class="red">Lost gold</p>
-    <p class="red">Lost gold</p>
+    <p class="red">Lost gold</p> -->
   </div>
 </div>
