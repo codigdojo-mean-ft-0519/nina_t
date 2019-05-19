@@ -22,6 +22,7 @@ export class ActivityListComponent implements OnInit {
       locationId: 3,
     },
   ];
+
   constructor() {}
 
   ngOnInit() {}

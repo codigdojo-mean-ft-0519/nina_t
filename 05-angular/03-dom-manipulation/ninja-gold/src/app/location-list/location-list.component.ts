@@ -32,6 +32,11 @@ export class LocationListComponent implements OnInit {
       maxGold: 50,
     },
   ];
+
+  onClick(locationId) {
+    console.log(locationId);
+  }
+
   constructor() {}
 
   ngOnInit() {}
