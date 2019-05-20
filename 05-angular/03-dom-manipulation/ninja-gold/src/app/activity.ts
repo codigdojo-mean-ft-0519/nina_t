@@ -1,5 +1,5 @@
 export class Activity {
-  goldAmt: number;
-  location: string;
   createdAt: number = Date.now();
+
+  constructor(public gold: number, public location: string) {}
 }

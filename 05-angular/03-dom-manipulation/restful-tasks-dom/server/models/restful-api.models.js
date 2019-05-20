@@ -24,5 +24,5 @@ const RestfulTaskSchema = Schema({
 }, {
   timestamps: true
 });
-
-module.exports = mongoose.model('RestfulTask', RestfulTaskSchema);
+//This should match what's in mongoose?
+module.exports = mongoose.model('Task', RestfulTaskSchema);

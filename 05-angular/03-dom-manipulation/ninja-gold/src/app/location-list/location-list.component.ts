@@ -25,11 +25,6 @@ export class LocationListComponent implements OnInit {
       newGold,
       location.name
     );
-    console.log(
-      'From our location-list component, our newActivity has a value of ' +
-        newActivity +
-        '!'
-    );
     this.activityService.updateActivities(newActivity);
   }
 

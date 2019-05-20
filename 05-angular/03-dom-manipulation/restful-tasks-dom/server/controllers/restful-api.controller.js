@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const RestfulTask = mongoose.model('RestfulTask');
+const RestfulTask = mongoose.model('Task');
 
 module.exports = {
   //GET: Retrieve all Tasks
@@ -14,6 +14,7 @@ module.exports = {
   },
   //GET: Retrieve a Task by ID
   show(request, response) {
+    console.log("From our controller...", request.params)
     RestfulTask.findOne(request.params)
       .then(task => {
         response.json(task ? task : 'Not in there');

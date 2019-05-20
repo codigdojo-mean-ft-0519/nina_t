@@ -11,16 +11,14 @@ import { Observable } from 'rxjs';
 export class HttpService {
   constructor(private _http: HttpClient) {
     this.getTasks();
-    this.getTask();
   }
 
   getTasks(): Observable<Task[]> {
-    //alternatively: Observable<{ tasks: Task[]}>
     return this._http.get<Task[]>('/tasks');
-    //return this._http.get<{task: Task[]}>
   }
   //Observable says "I'm going to wrap up the result of this in something that's ansynchronous"
   getTask(id: string): Observable<Task> {
-    return this._http.get<Task>(`/tasks/:${id}`);
+    console.log('From our HTTP Service, our id is ' + id);
+    return this._http.get<Task>(`/tasks/${id}`);
   }
 }

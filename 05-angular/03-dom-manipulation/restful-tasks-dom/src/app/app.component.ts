@@ -12,7 +12,6 @@ export class AppComponent implements OnInit {
   //DEFINE AND ASSIGN INSTANCE VARIABLES ABOVE THE CONSTRUCTOR
   title = 'Restful Tasks Dom Manipulation';
   tasks: Task[];
-  //We are going to use the word "task" and what we get needs to be in the value of a "Task"
   task: Task;
 
   constructor(private _httpService: HttpService) {}
@@ -20,8 +19,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     //REPLACE THIS STRING WITH A REAL ID LATER
-    const id = '1235190384';
-    console.log('Get Tasks from app.component.ts is running!');
+    const id = '5cdcd455643b25023c99080e';
     this.getTasks();
     //I have no idea how to represent an id from our model...Using 1 as a placeholder
     this.getTask(id);
@@ -34,6 +32,7 @@ export class AppComponent implements OnInit {
     });
   }
   getTask(id: string) {
+    console.log('From Get Task, our id is ' + id);
     this._httpService.getTask(id).subscribe(task => {
       //Task will show us [Object object]...but if you put a string ahead of it it won't be
       console.log('Got a task!', task);
