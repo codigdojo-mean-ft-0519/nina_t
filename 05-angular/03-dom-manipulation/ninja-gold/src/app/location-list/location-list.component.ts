@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '../location';
 import { LocationService } from '../location.service';
+import { User } from '../user';
 import { UserService } from '../user.service';
+import { ActivityService } from '../activity.service';
+import { Activity } from '../activity';
 
 @Component({
   selector: 'app-location-list',
@@ -11,49 +14,30 @@ import { UserService } from '../user.service';
 export class LocationListComponent implements OnInit {
   locations: Location[] = [];
   user: User;
-
-  onClick(location) {
-    // console.log(location);
-    if (location.id == 1) {
-      const new_gold =
-        Math.floor(Math.random() * (location.maxGold - location.minGold + 1)) +
-        location.minGold;
-      console.log(
-        `The random amount of gold you get from ${
-          location.name
-        } is ${new_gold}!`
-      );
-    } else if (location.id == 2) {
-      const new_gold =
-        Math.floor(Math.random() * (location.maxGold - location.minGold + 1)) +
-        location.minGold;
-      console.log(
-        `The random amount of gold you get from ${
-          location.name
-        } is ${new_gold}!`
-      );
-    } else if (location.id == 3) {
-      const new_gold =
-        Math.floor(Math.random() * (location.maxGold - location.minGold + 1)) +
-        location.minGold;
-      console.log(
-        `The random amount of gold you get from ${
-          location.name
-        } is ${new_gold}!`
-      );
-    } else {
-      const new_gold =
-        Math.floor(Math.random() * (location.maxGold - location.minGold + 1)) +
-        location.minGold;
-      console.log(
-        `The random amount of gold you get from ${
-          location.name
-        } is ${new_gold}!`
-      );
-    }
+  private randomGold(min, max): number {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  constructor(private locationService: LocationService) {}
+  onClick(location: Location) {
+    const newGold = this.randomGold(location.minGold, location.maxGold);
+    this.userService.updateUser(newGold);
+    const newActivity = this.activityService.createActivity(
+      newGold,
+      location.name
+    );
+    console.log(
+      'From our location-list component, our newActivity has a value of ' +
+        newActivity +
+        '!'
+    );
+    this.activityService.updateActivities(newActivity);
+  }
+
+  constructor(
+    private locationService: LocationService,
+    private userService: UserService,
+    private activityService: ActivityService
+  ) {}
 
   ngOnInit() {
     this.locations = this.locationService.getLocations();

@@ -8,10 +8,10 @@ import { User } from '../user';
   styleUrls: ['./gold.component.css'],
 })
 export class GoldComponent implements OnInit {
-  gold: number;
+  user: User;
   constructor(private userService: UserService) {}
 
   ngOnInit() {
-    this.gold = this.userService.getUser().gold;
+    this.user = this.userService.getUser();
   }
 }

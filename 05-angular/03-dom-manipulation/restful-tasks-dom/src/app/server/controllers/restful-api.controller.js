@@ -5,12 +5,15 @@ module.exports = {
   //GET: Retrieve all Tasks
   index(request, response) {
     RestfulTask.find({})
-      .then(task => response.json(task))
+      //When we retrieve all the content we've requested, then send it back as a json response back to the client
+      .then(tasks => response.json(tasks))
+      //Instead of the above the platform style would have been passing in an object.
+      //The key "tasks" would be an array of tasks
+      //.then(resttasks => response.json({tasks: resttasks}));
       .catch(error => response.json(error));
   },
   //GET: Retrieve a Task by ID
   show(request, response) {
-    console.log('request params', request.params);
     RestfulTask.findOne(request.params)
       .then(task => {
         response.json(task ? task : 'Not in there');

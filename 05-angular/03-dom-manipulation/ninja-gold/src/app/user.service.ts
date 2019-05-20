@@ -12,6 +12,7 @@ export class UserService {
     return this.user;
   }
   updateUser(gold: number): void {
+    console.log('Updating gold....' + gold);
     this.user.gold += gold;
   }
   constructor() {}

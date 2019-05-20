@@ -3,19 +3,24 @@ import { HttpClient } from '@angular/common/http';
 import { Task } from './task.model';
 import { Observable } from 'rxjs';
 
+//have a majority of your interaction with the resource (i.e. tasks) in the same service file
+
 @Injectable({
   providedIn: 'root',
 })
 export class HttpService {
   constructor(private _http: HttpClient) {
     this.getTasks();
+    this.getTask();
   }
 
   getTasks(): Observable<Task[]> {
+    //alternatively: Observable<{ tasks: Task[]}>
     return this._http.get<Task[]>('/tasks');
+    //return this._http.get<{task: Task[]}>
   }
-
-  // getTask(id): Observable<Task> {
-  //   return this._http.get<Task>('/tasks/:id');
-  // }
+  //Observable says "I'm going to wrap up the result of this in something that's ansynchronous"
+  getTask(id: string): Observable<Task> {
+    return this._http.get<Task>(`/tasks/:${id}`);
+  }
 }

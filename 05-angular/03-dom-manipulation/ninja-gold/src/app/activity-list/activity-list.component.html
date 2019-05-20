@@ -2,8 +2,7 @@
   <p>Activities:</p>
   <div class="activities">
     <p *ngFor="let activity of activities" [class.green]="activity.goldAmt >= 0" [class.red]="activity.goldAmt < 0">
-      {{activity.goldAmt >=0 ? 'won' : 'lost'}} {{activity.goldAmt}} golds at the (locationId) {{activity.locationID}}
-      at
-      {{ activity.createdAt | date }}</p>
+      {{activity.goldAmt >=0 ? 'won' : 'lost'}} {{activity.goldAmt}} golds at the {{activity.location}}
+      at {{ activity.createdAt | date }}</p>
   </div>
 </div>
