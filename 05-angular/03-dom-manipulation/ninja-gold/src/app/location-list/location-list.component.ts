@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LocationService } from '../location.service';
 
 @Component({
   selector: 'app-location-list',
@@ -6,38 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./location-list.component.css'],
 })
 export class LocationListComponent implements OnInit {
-  locations: object[] = [
-    {
-      id: 1,
-      name: 'Farm',
-      minGold: 10,
-      maxGold: 20,
-    },
-    {
-      id: 2,
-      name: 'Cave',
-      minGold: 5,
-      maxGold: 10,
-    },
-    {
-      id: 3,
-      name: 'House',
-      minGold: 2,
-      maxGold: 5,
-    },
-    {
-      id: 4,
-      name: 'Casino',
-      minGold: -50,
-      maxGold: 50,
-    },
-  ];
+  locations: Location[];
 
   onClick(locationId) {
     console.log(locationId);
   }
 
-  constructor() {}
+  constructor(private locationService: LocationService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.locations = this.locationService.getLocations();
+  }
 }

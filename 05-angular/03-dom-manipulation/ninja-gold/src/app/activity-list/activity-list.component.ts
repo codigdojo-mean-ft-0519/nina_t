@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Activity } from '../activity';
+import { ActivityService } from '../activity.service';
 
 @Component({
   selector: 'app-activity-list',
@@ -6,24 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./activity-list.component.css'],
 })
 export class ActivityListComponent implements OnInit {
-  activities: object[] = [
-    {
-      id: 1,
-      goldAmt: 10,
-      createdAt: Date.now(),
-      userId: 1,
-      locationId: 2,
-    },
-    {
-      id: 2,
-      goldAmt: -10,
-      createdAt: Date.now(),
-      userId: 1,
-      locationId: 3,
-    },
-  ];
+  activities: Activity[];
 
-  constructor() {}
+  constructor(private activityService: ActivityService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.activities = this.activityService.getActivities();
+  }
 }
