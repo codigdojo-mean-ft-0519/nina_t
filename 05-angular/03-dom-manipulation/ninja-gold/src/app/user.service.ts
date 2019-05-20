@@ -6,10 +6,7 @@ import { User } from './user';
 })
 export class UserService {
   user: User = {
-    id: 1,
-    gold: 20,
-    firstName: 'Nina',
-    lastName: 'Tompkin',
+    gold: 0,
   };
   getUser(): User {
     return this.user;
