@@ -14,7 +14,6 @@ module.exports = {
   },
   //GET: Retrieve a Task by ID
   show(request, response) {
-    console.log("From our controller...", request.params)
     RestfulTask.findOne(request.params)
       .then(task => {
         response.json(task ? task : 'Not in there');
@@ -24,7 +23,6 @@ module.exports = {
 
   //POST: Create a Task
   create(request, response) {
-    console.log('insde create', request.body);
     RestfulTask.create(request.body)
       .then(task => response.json(task))
       .catch(error => response.json(error));
@@ -32,7 +30,6 @@ module.exports = {
 
   //PUT: Update a Task by ID
   update(request, response) {
-    console.log('request stuff', request.params, request.body);
     RestfulTask.findByIdAndUpdate(request.params._id, request.body, {
         new: true
       })
