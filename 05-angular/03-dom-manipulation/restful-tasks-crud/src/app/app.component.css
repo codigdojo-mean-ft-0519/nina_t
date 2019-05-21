@@ -3,10 +3,15 @@
 }
 
 .container {
-  padding: 50px;
+  padding: 20px;
   width: 80%;
   margin: auto;
   text-align: center;
+}
+
+.maintitle {
+  font-size: 3em;
+  margin-bottom: 40px;
 }
 
 .col {
