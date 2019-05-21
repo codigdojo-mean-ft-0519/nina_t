@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { HttpService } from './http.service';
 import { Task } from './task.model';
 import { Observable } from 'rxjs';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -9,34 +10,58 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  //DEFINE AND ASSIGN INSTANCE VARIABLES ABOVE THE CONSTRUCTOR
   title = 'Restful Tasks CRUD';
-  tasks: Task[];
-  task: Task;
+  tasks: Task[] = [];
+  task = new Task();
 
   constructor(private _httpService: HttpService) {}
-  //This allows us to see things in our html later
 
-  ngOnInit() {
-    //REPLACE THIS STRING WITH A REAL ID LATER
-    const id = '5cdcd455643b25023c99080e';
-    this.getTasks();
-    //I have no idea how to represent an id from our model...Using 1 as a placeholder
-    this.getTask(id);
+  ngOnInit() {}
+
+  onSubmit(event: Event, form: NgForm) {
+    event.preventDefault();
+    // console.log('Reached the onSubmit function and received:', this.task);
+    this.createTask(this.task);
+    this.task = new Task();
+    // console.log('Task has been wiped clean, ready for creation of next Task!');
+    form.reset();
   }
-  getTasks() {
-    const observable: Observable<Task[]> = this._httpService.getTasks();
-    observable.subscribe(data => {
-      console.log('Got our tasks!', data);
-      this.tasks = data;
-    });
+
+  createTask(createdTask: Task) {
+    console.log('Reached the createTask function and received:', createdTask);
+    this.tasks.push(createdTask);
+    console.log(
+      'Our newly created tasks has been successfully pushed into our array. Our tasks array now looks like....',
+      this.tasks
+    );
   }
-  getTask(id: string) {
-    console.log('From Get Task, our id is ' + id);
-    this._httpService.getTask(id).subscribe(task => {
-      //Task will show us [Object object]...but if you put a string ahead of it it won't be
-      console.log('Got a task!', task);
-      this.task = task;
-    });
+
+  onDelete(taskToDelete: Task) {
+    console.log(
+      'Reached the onDelete button! We wanted to delete the following task:',
+      taskToDelete
+    );
   }
+
+  deleteTask(selectedTask: Task) {
+    console.log('yay');
+  }
+
+  onUpdate(taskToUpdate: Task) {
+    console.log(
+      'Reached the onUpdate button! We wanted to update the following task: ',
+      taskToUpdate
+    );
+  }
+  // getTasks() {
+  //   const observable: Observable<Task[]> = this._httpService.getTasks();
+  //   observable.subscribe(data => {
+  //     this.tasks = data;
+  //   });
+  // }
+  // getTask(id: string) {
+  //   this._httpService.getTask(id).subscribe(task => {
+  //     this.task = task;
+  //   });
+  // }
 }

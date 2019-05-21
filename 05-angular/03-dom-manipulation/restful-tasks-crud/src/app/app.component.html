@@ -4,13 +4,13 @@
   <div class="col">
 
     <h1>New Task</h1>
-    <form autocomplete="off">
+    <form (submit)="onSubmit($event, taskForm)" #taskForm="ngForm" autocomplete="off">
       <div class="row">
         <div class="col-25 grey-highlight">
           <label>Title of Task</label>
         </div>
         <div class="col-75">
-          <input type="text" name="title" />
+          <input type="text" name="title" [(ngModel)]="task.title" />
         </div>
       </div>
       <div class="row">
@@ -18,35 +18,28 @@
           <label>Task Description</label>
         </div>
         <div class="col-75">
-          <input type="text" name="description" />
+          <input type="text" name="description" [(ngModel)]="task.description" />
         </div>
       </div>
       <div class="row">
-        <button class="mainbtn">Create</button>
+        <button *ngIf="taskForm.valid" class="mainbtn">Create</button>
       </div>
     </form>
 
     <h1>Task List</h1>
-    <div class="task-list-component">
-      <div class="view-task">
-        <h1>Task Title</h1>
-        <p>Task Details</p>
-      </div>
-      <div class="task-buttons">
-        <button class="mainbtn">Edit</button>
-        <button class="deletebtn">Delete</button>
-      </div>
-    </div>
-    <div class="task-list-component">
-      <div class="view-task">
-        <h1>Task Title</h1>
-        <p>Task Details</p>
-      </div>
-      <div class="task-buttons">
-        <button class="mainbtn">Edit</button>
-        <button class="deletebtn">Delete</button>
+    <div *ngIf="tasks.length>0">
+      <div *ngFor="let task of tasks" class="task-list-component">
+        <div class="view-task">
+          <h1>{{task.title}}</h1>
+          <p>{{task.description}}</p>
+        </div>
+        <div class="task-buttons">
+          <button (click)="onUpdate(task)" class="mainbtn">Edit</button>
+          <button (click)="onDelete(task)" class="deletebtn">Delete</button>
+        </div>
       </div>
     </div>
+
 
     <!-- REAPEAT THESE TASK COMPONENTS PER EACH TASK -->
 

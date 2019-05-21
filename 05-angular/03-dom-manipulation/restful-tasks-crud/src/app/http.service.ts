@@ -18,7 +18,6 @@ export class HttpService {
   }
   //Observable says "I'm going to wrap up the result of this in something that's ansynchronous"
   getTask(id: string): Observable<Task> {
-    console.log('From our HTTP Service, our id is ' + id);
     return this._http.get<Task>(`/tasks/${id}`);
   }
 }
