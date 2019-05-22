@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   title = 'Restful Tasks CRUD';
   tasks: Task[];
   task = new Task();
+  selectedTask: Task;
 
   constructor(private _httpService: HttpService) {}
 
@@ -48,19 +49,25 @@ export class AppComponent implements OnInit {
       this.tasks = this.tasks.filter(
         taskFromArray => taskFromArray._id !== deletedTask._id
       );
+      this.getTasks();
     });
   }
 
-  onUpdate(task: Task) {
+  onUpdate() {
     console.log(
       'Reached the onUpdate button! We wanted to update the following task: ',
-      task
+      this.selectedTask
     );
-    this.getTask(task._id);
+    this._httpService.updateTask(this.selectedTask).subscribe(editedTask => {
+      console.log('The task that we will be editing is ...', editedTask);
+      this.selectedTask = null;
+      this.getTasks();
+    });
   }
 
-  showEditField(task: Task) {
-    console.log('This is the task we want to show: ', task);
+  showEditField(clickedTask: Task) {
+    // console.log('This is the task we want to show: ', clickedTask);
+    this.selectedTask = this.selectedTask === clickedTask ? null : clickedTask;
   }
 
   getTask(id: string) {
