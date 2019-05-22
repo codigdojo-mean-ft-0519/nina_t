@@ -16,8 +16,21 @@ export class HttpService {
   getTasks(): Observable<Task[]> {
     return this._http.get<Task[]>('/tasks');
   }
-  //Observable says "I'm going to wrap up the result of this in something that's ansynchronous"
   getTask(id: string): Observable<Task> {
     return this._http.get<Task>(`/tasks/${id}`);
+  }
+
+  createTask(task: Task): Observable<Task> {
+    //SOMETHING NEEDS TO GO HERE
+    return this._http.post<Task>('/tasks');
+  }
+
+  updateTask(id: string): Observable<Task> {
+    //SOMETHING NEEDS TO GO HERE
+    return this._http.put<Task>(`/tasks/${id}`);
+  }
+
+  deleteTask(id: string): Observable<Task> {
+    return this._http.delete<Task>(`/tasks/${id}`);
   }
 }
