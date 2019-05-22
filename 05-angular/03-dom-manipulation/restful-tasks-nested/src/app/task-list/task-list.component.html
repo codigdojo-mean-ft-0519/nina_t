@@ -1,0 +1,15 @@
+<div class="tasks-holder">
+  <button class="getbutton" (click)="buttonGetAllTasks()">GET ALL TASKS</button>
+  <div *ngIf="tasks">
+    <div *ngFor="let task of tasks">
+      <div class="row">
+        <div class="col-75">
+          <p>{{task?.title }} - {{ task?.description}}</p>
+        </div>
+        <div class="col-25">
+          <button class="round" (click)="buttonShowOneTask(task)">SHOW</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

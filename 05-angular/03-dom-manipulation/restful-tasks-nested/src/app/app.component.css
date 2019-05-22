@@ -1,0 +1,19 @@
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  margin: 20px;
+  padding: 50px;
+  border: 4px solid orange;
+  border-radius: 10px;
+}
+
+.title {
+  text-align: center;
+  margin: 20px;
+}
+
+h1 {
+  font-size: 4em;
+}

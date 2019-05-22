@@ -1,0 +1,11 @@
+.single-task {
+  text-align: center;
+  border: 4px solid green;
+  border-radius: 10px;
+  margin: 8px;
+  padding: 70px;
+}
+
+.single-task h3 {
+  margin-bottom: 30px;
+}
