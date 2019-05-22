@@ -7,8 +7,7 @@ import { Task } from '../task.model';
   styleUrls: ['./task-detail.component.css'],
 })
 export class TaskDetailComponent implements OnInit {
-  @Input()
-  taskToShow: Task;
+  @Input() taskToShow: Task;
 
   constructor() {}
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { HttpService } from '../http.service';
 import { Task } from '../task.model';
 import { Observable } from 'rxjs';
@@ -12,6 +12,7 @@ export class TaskListComponent implements OnInit {
   task: Task;
   tasks: Task[];
   selectedTask: Task;
+  // @Output() onTaskSelected = new EventEmitter();
 
   constructor(private _httpService: HttpService) {}
 
@@ -25,9 +26,10 @@ export class TaskListComponent implements OnInit {
     });
   }
 
-  buttonShowOneTask(clickedTask: Task) {
+  taskToShow(clickedTask: Task) {
     this.selectedTask = this.selectedTask === clickedTask ? null : clickedTask;
     console.log('Our selected task is....', this.selectedTask);
+    // this.onTaskSelected.emit(this.selectedTask);
   }
 
   getTask(id: string) {

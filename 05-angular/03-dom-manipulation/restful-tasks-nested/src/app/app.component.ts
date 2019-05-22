@@ -8,11 +8,14 @@ import { Task } from './task.model';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  title = 'Restful Tasks Nested';
-  task: Task;
-  selectedTask: Task;
-
+  title: 'RestfulTasksNested';
+  // submittedTask: Task;
   ngOnInit(): void {}
 
-  constructor(private _httpService: HttpService) {}
+  constructor() {}
+
+  // dataFromChild(submittedTask) {
+  //   console.log('My child gave me', submittedTask);
+  //   this.submittedTask = submittedTask;
+  // }
 }
