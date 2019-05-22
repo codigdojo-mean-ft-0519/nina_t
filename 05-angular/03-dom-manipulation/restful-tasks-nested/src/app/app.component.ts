@@ -8,7 +8,7 @@ import { Task } from './task.model';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  title: 'RestfulTasksNested';
+  title = 'RestfulTasksNested';
   // submittedTask: Task;
   ngOnInit(): void {}
 
