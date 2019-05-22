@@ -42,7 +42,7 @@ module.exports = {
 
   //DELETE: Delete a Task by ID
   destroy(request, response) {
-    RestfulTask.remove(request.params)
+    RestfulTask.findByIdAndRemove(request.params._id)
       .then(result => response.json(result))
       .catch(error => response.json(error));
   },

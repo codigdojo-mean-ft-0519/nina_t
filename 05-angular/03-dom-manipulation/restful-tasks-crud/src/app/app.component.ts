@@ -49,7 +49,6 @@ export class AppComponent implements OnInit {
       this.tasks = this.tasks.filter(
         taskFromArray => taskFromArray._id !== deletedTask._id
       );
-      this.getTasks();
     });
   }
 
