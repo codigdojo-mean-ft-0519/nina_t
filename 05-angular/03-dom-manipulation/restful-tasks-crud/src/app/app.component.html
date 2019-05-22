@@ -22,29 +22,21 @@
         </div>
       </div>
       <div class="row">
-        <button *ngIf="taskForm.valid" class="mainbtn">Create</button>
+        <button class="mainbtn">Create</button>
       </div>
     </form>
 
     <h1>Task List</h1>
-    <div *ngIf="tasks.length>0">
-      <div *ngFor="let task of tasks" class="task-list-component">
-        <div class="view-task">
-          <h1>{{task.title}}</h1>
-          <p>{{task.description}}</p>
-        </div>
-        <div class="task-buttons">
-          <button (click)="onUpdate(task)" class="mainbtn">Edit</button>
-          <button (click)="onDelete(task.id)" class="deletebtn">Delete</button>
-        </div>
+    <div *ngFor="let task of tasks" class="task-list-component">
+      <div class="view-task">
+        <h1>{{task.title}}</h1>
+        <p>{{task.description}}</p>
+      </div>
+      <div class="task-buttons">
+        <button (click)="showEditField(task)" class="mainbtn">Edit</button>
+        <button (click)="onDelete(task._id)" class="deletebtn">Delete</button>
       </div>
     </div>
-
-
-    <!-- REAPEAT THESE TASK COMPONENTS PER EACH TASK -->
-
-    <!-- REAPEAT THESE TASK COMPONENTS PER EACH TASK -->
-
   </div>
 
   <div class="col">
@@ -66,7 +58,7 @@
       </div>
     </div>
     <div class="row">
-      <button class="mainbtn">Edit</button>
+      <button (click)="showEditField(task)" class="mainbtn">Edit</button>
     </div>
   </div>
 </div>

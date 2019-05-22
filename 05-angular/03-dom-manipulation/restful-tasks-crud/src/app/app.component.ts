@@ -12,11 +12,13 @@ import { NgForm } from '@angular/forms';
 export class AppComponent implements OnInit {
   title = 'Restful Tasks CRUD';
   tasks: Task[];
-  task: Task;
+  task = new Task();
 
   constructor(private _httpService: HttpService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getTasks();
+  }
 
   getTasks() {
     const observable: Observable<Task[]> = this._httpService.getTasks();
@@ -25,20 +27,14 @@ export class AppComponent implements OnInit {
     });
   }
 
-  getTask(id: string) {
-    this._httpService.getTask(id).subscribe(task => {
-      this.task = task;
-    });
-  }
-
   onSubmit(event: Event, form: NgForm) {
     event.preventDefault();
-    // console.log('Reached the onSubmit function and received:', this.task);
+    console.log('Reached the onSubmit function and received:', this.task);
     this._httpService.createTask(this.task).subscribe(apiTask => {
       this.tasks.push(apiTask);
     });
     this.task = new Task();
-    // console.log('Task has been wiped clean, ready for creation of next Task!');
+    console.log('Task has been wiped clean, ready for creation of next Task!');
     form.reset();
   }
 
@@ -46,16 +42,30 @@ export class AppComponent implements OnInit {
     console.log(
       'Reached the onDelete button! We wanted to delete the following task:',
       taskId
-      this._httpService.deleteTask(taskId).subscribe(deletedTask => {
-        console.log("From onDelete, our deleted task is :", deletedTask);
-        this.tasks = this.tasks.filter(taskFromArray => taskFromArray.id! == deletedTask.id);
-      });
-    }
+    );
+    this._httpService.deleteTask(taskId).subscribe(deletedTask => {
+      console.log('Our deleted task is ', deletedTask);
+      this.tasks = this.tasks.filter(
+        taskFromArray => taskFromArray._id !== deletedTask._id
+      );
+    });
+  }
 
-  onUpdate(taskId: string) {
+  onUpdate(task: Task) {
     console.log(
       'Reached the onUpdate button! We wanted to update the following task: ',
-      taskToUpdate
+      task
     );
+    this.getTask(task._id);
+  }
+
+  showEditField(task: Task) {
+    console.log('This is the task we want to show: ', task);
+  }
+
+  getTask(id: string) {
+    this._httpService.getTask(id).subscribe(task => {
+      this.task = task;
+    });
   }
 }

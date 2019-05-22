@@ -3,31 +3,26 @@ import { HttpClient } from '@angular/common/http';
 import { Task } from './task.model';
 import { Observable } from 'rxjs';
 
-//have a majority of your interaction with the resource (i.e. tasks) in the same service file
-
 @Injectable({
   providedIn: 'root',
 })
 export class HttpService {
-  constructor(private _http: HttpClient) {
-    this.getTasks();
-  }
+  constructor(private _http: HttpClient) {}
 
   getTasks(): Observable<Task[]> {
     return this._http.get<Task[]>('/tasks');
   }
+
   getTask(id: string): Observable<Task> {
     return this._http.get<Task>(`/tasks/${id}`);
   }
 
   createTask(task: Task): Observable<Task> {
-    //SOMETHING NEEDS TO GO HERE
-    return this._http.post<Task>('/tasks');
+    return this._http.post<Task>('/tasks', task);
   }
 
-  updateTask(id: string): Observable<Task> {
-    //SOMETHING NEEDS TO GO HERE
-    return this._http.put<Task>(`/tasks/${id}`);
+  updateTask(task: Task): Observable<Task> {
+    return this._http.put<Task>(`/tasks/${task._id}`, task);
   }
 
   deleteTask(id: string): Observable<Task> {
