@@ -60,14 +60,23 @@ export class AppComponent implements OnInit {
     );
     this._httpService.updateTask(this.selectedTask).subscribe(editedTask => {
       console.log('The task that we will be editing is ...', editedTask);
+      //We're changing the array and re-stuffing it with the new updated task in the right position
+      this.tasks = this.tasks.map(
+        taskFromArray =>
+          //if the id's match, then we're going to take the original thing in the array and replace it with the updated one;
+          taskFromArray._id == editedTask._id ? editedTask : taskFromArray
+
+        //You could have also done the following:
+        // this.tasks = [...this.tasks.filter(taskFromArray => editedTask._id !== taskFromArray._id), editedTask]
+      );
       this.selectedTask = null;
-      this.getTasks();
     });
   }
 
   showEditField(clickedTask: Task) {
     // console.log('This is the task we want to show: ', clickedTask);
-    this.selectedTask = this.selectedTask === clickedTask ? null : clickedTask;
+    this.selectedTask =
+      this.selectedTask === clickedTask ? null : { ...clickedTask }; //spreading helps stop updating it in both places
   }
 
   getTask(id: string) {
