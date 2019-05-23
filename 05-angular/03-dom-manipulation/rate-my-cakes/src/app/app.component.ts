@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
   //You can't just say it will be an array of cakes...
   //You have to set up the array to be empty (to receive lotsa cakes)
   cakes: Cake[] = [];
+  selectedCake: Cake;
 
   constructor(
     private cakeService: CakeService,
@@ -65,7 +66,12 @@ export class AppComponent implements OnInit {
         foundCake.ratings.push(newRating);
         console.log(this.cakes);
       });
-    //
-    // console.log('You clicked me! Our cake to update is, ', this.cake);
+  }
+  onSelectCake(clickedCake: Cake) {
+    //Define a "selectedCake" as our clickedCake. (we will use this information to send to our child!)
+    //Otherwise, if selectedCake is already defined as our clicked cake, then turn it to back null.
+    //The visual effect is toggling selectedCake on and off (and therefor our child toggles on and off)
+    this.selectedCake = this.selectedCake === clickedCake ? null : clickedCake;
+    console.log('Our selected task is....', this.selectedCake);
   }
 }

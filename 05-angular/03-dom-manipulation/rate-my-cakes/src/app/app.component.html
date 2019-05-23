@@ -21,10 +21,9 @@
         <div class="col-50 img-block">
           <!-- This is property binding...better than writing src = "{{stuff}}" -->
           <!-- this is treating something on the right side as an thingy with a property -->
-          <img [src]="cake.imageUrl">
+          <img (click)="onSelectCake(cake)" [src]="cake.imageUrl">
         </div>
         <div class="col-50">
-          <!-- {{cake | json}} -->
           <form class="list-form-group" (submit)="onReviewCake($event, reviewCakeForm, cake._id)"
             #reviewCakeForm="ngForm">
             <input type="hidden" name="cake" [value]="cake._id" ngModel>
@@ -42,28 +41,6 @@
         </div>
       </div>
     </div>
-
-
-    <!-- HARD CODED ONE (SO IT LOOKS PRETTY) -->
-    <div class="row">
-      <div class="col-50">
-        <img src="https://cdn.stocksnap.io/img-thumbs/960w/ZURJJVB3DI.jpg">
-      </div>
-      <div class="col-50">
-        <form class="list-form-group">
-          <select name="numStars">
-            <option value="5stars">5 stars</option>
-            <option value="4stars">4 stars</option>
-            <option value="3stars">3 stars</option>
-            <option value="2stars">2 stars</option>
-            <option value="1star">1 star</option>
-            <option value="0stars">0 stars</option>
-          </select>
-          <textarea>Type your comment here!</textarea>
-          <input type="submit" value="Rate!">
-        </form>
-      </div>
-    </div>
   </div>
-  <app-cake-detail></app-cake-detail>
+  <app-cake-detail *ngIf="selectedCake" [cakeToShow]="selectedCake"></app-cake-detail>
 </div>
