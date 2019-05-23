@@ -14,9 +14,13 @@ export class CakeService {
     return this._http.post<Cake>('/cakes/', cake);
   }
 
-  updateCake(cake: Cake) {
+  updateCake(cake: Cake): Observable<Cake> {
     console.log('Reporting in from our service file...updating a cake!');
     return this._http.put<Cake>(`/cakes/${cake._id}`, cake);
+  }
+
+  showAllCakes(): Observable<Cake[]> {
+    return this._http.get<Cake[]>('/cakes');
   }
 }
 

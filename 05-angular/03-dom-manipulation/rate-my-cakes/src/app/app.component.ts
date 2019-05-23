@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Cake } from './cake.model';
+import { Cake, Rating } from './cake.model';
 import { CakeService } from './cake.service';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { RatingService } from './rating.service';
 
 @Component({
   selector: 'app-root',
@@ -12,11 +13,25 @@ import { Observable } from 'rxjs';
 export class AppComponent implements OnInit {
   title = 'Rate my Cakes';
   cake = new Cake();
-  cakes: Cake[];
+  //You can't just say it will be an array of cakes...
+  //You have to set up the array to be empty (to receive lotsa cakes)
+  cakes: Cake[] = [];
 
-  constructor(private cakeService: CakeService) {}
+  constructor(
+    private cakeService: CakeService,
+    private ratingService: RatingService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getAllCakes();
+  }
+
+  getAllCakes() {
+    this.cakeService.showAllCakes().subscribe(allCakes => {
+      console.log('Getting YUMMY delicious cakes!!');
+      this.cakes = allCakes;
+    });
+  }
 
   onSubmitCake(event: Event, form: NgForm) {
     event.preventDefault();
@@ -29,23 +44,28 @@ export class AppComponent implements OnInit {
         newCakeFromDB
       );
     });
-    // console.log(
-    //   'Our cakes array now contains the following cakes...',
-    //   this.cakes
-    // );
+    console.log(
+      'Our cakes array now contains the following cakes...',
+      this.cakes
+    );
     this.cake = new Cake();
     console.log('Cake has been wiped, ready for the creation of a new cake!');
     form.reset();
   }
 
-  onReviewCake(event: Event, form: NgForm) {
-    console.log('You clicked me! Our cake to update is, ', this.cake);
-    // let cakeRating = {
-    //   rating: form.controls['rating']['value'],
-    //   comment: form.controls['rating']['comment'],
-    // };
-    this.cakeService.updateCake(this.cake).subscribe(rankedCake => {
-      console.log('What the heck');
-    });
+  onReviewCake(event: Event, form: NgForm, cake: string) {
+    event.preventDefault();
+    console.log(form.value);
+    this.ratingService
+      .addRating({ ...form.value, cake })
+      .subscribe(newRating => {
+        const foundCake = this.cakes.find(
+          cakeFromArray => newRating.cake === cakeFromArray._id
+        );
+        foundCake.ratings.push(newRating);
+        console.log(this.cakes);
+      });
+    //
+    // console.log('You clicked me! Our cake to update is, ', this.cake);
   }
 }

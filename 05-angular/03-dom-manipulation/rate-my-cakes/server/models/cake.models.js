@@ -1,6 +1,15 @@
 const mongoose = require('mongoose');
 
+const {
+  Schema
+} = mongoose;
+
 const RatingSchema = mongoose.Schema({
+  cake: {
+    type: Schema.Types.ObjectId,
+    ref: 'Cake',
+    required: true,
+  },
   rating: {
     type: Number,
     required: true,
@@ -12,6 +21,7 @@ const RatingSchema = mongoose.Schema({
     required: false
   },
 });
+
 const CakeSchema = new mongoose.Schema({
   bakedBy: {
     type: String,
@@ -21,9 +31,13 @@ const CakeSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  rating_info: [RatingSchema],
+  ratings: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Rating'
+  }],
 }, {
   timestamp: true
 });
 
-module.exports = mongoose.model('Cake', CakeSchema);
+module.exports.Cake = mongoose.model('Cake', CakeSchema);
+module.exports.Rating = mongoose.model('Rating', RatingSchema);

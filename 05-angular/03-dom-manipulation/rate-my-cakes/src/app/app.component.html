@@ -19,12 +19,17 @@
     <div *ngFor="let cake of cakes">
       <div class="row">
         <div class="col-50 img-block">
-          <img src="{{cake.imageUrl}}">
+          <!-- This is property binding...better than writing src = "{{stuff}}" -->
+          <!-- this is treating something on the right side as an thingy with a property -->
+          <img [src]="cake.imageUrl">
         </div>
         <div class="col-50">
-          <form class="list-form-group" (submit)="onReviewCake($event, reviewCakeForm)" #reviewCakeForm="ngForm">
+          <!-- {{cake | json}} -->
+          <form class="list-form-group" (submit)="onReviewCake($event, reviewCakeForm, cake._id)"
+            #reviewCakeForm="ngForm">
+            <input type="hidden" name="cake" [value]="cake._id" ngModel>
             <select name="rating" ngModel>
-              <option value="5">5 stars</option>
+              <option selected=selected value="5">5 stars</option>
               <option value="4">4 stars</option>
               <option value="3">3 stars</option>
               <option value="2">2 stars</option>
