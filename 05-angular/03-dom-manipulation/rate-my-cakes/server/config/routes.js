@@ -14,7 +14,8 @@ module.exports = function (app) {
   });
 
   //POST: Create a Task
-  app.post('/cakes', function (request, response) {
+  app.post('/cakes/', function (request, response) {
+    console.log("From the server.routes.js file, we're talking to our controller!");
     RestfulCakeController.create(request, response);
   });
 

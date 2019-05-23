@@ -20,7 +20,7 @@ module.exports = {
 
   //POST: Create a Cake
   create(request, response) {
-    console.log('insde create', request.body);
+    console.log('creating cake...', request.body);
     CakeSchema.create(request.body)
       .then(cake => response.json(cake))
       .catch(error => response.json(error));

@@ -1,45 +1,48 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="container">
-  <h1>{{ title }}!</h1>
+  <h1>{{ title}}!</h1>
   <div class="col-new">
     <div class="form-group-new">
-      <form autocomplete="off">
+      <form (submit)="onSubmitCake($event, newCakeForm)" #newCakeForm="ngForm" autocomplete="off">
         <label>Submit a cake to be rated</label>
         <hr>
-        <label for="fname">Baker Name</label>
-        <input type="text" name="bakername" placeholder="Charlie Brown">
-
-        <label for="lname">Image url (no nudes please...)</label>
-        <input type="text" name="imageurl">
-        <input class="btn" type="submit" value="Submit">
+        <label for="name">Baker Name</label>
+        <input type="text" name="bakedBy" [(ngModel)]="cake.bakedBy" placeholder="Charlie Brown">
+        <label for="name">Image url (no nudes please...)</label>
+        <input type="text" name="imageUrl" [(ngModel)]="cake.imageUrl">
+        <input class=" btn" type="submit" value="Submit">
       </form>
     </div>
   </div>
 
   <div class="col-list">
-    <div class="row">
-      <div class="col-50 img-block">
-        <img src="https://i.ytimg.com/vi/ZBkQtHzInCo/maxresdefault.jpg">
-      </div>
-      <div class="col-50">
-        <form class="list-form-group">
-          <select name="numStars">
-            <option value="5stars">5 stars</option>
-            <option value="4stars">4 stars</option>
-            <option value="3stars">3 stars</option>
-            <option value="2stars">2 stars</option>
-            <option value="1star">1 star</option>
-            <option value="0stars">0 stars</option>
-          </select>
-          <textarea>Type your comment here!</textarea>
-          <input type="submit" value="Rate!">
-        </form>
+    <div *ngFor="let cake of cakes">
+      <div class="row">
+        <div class="col-50 img-block">
+          <img src="{{cake.imageUrl}}">
+        </div>
+        <div class="col-50">
+          <form class="list-form-group" (submit)="onReviewCake($event, reviewCakeForm)" #reviewCakeForm="ngForm">
+            <select name="rating" ngModel>
+              <option value="5">5 stars</option>
+              <option value="4">4 stars</option>
+              <option value="3">3 stars</option>
+              <option value="2">2 stars</option>
+              <option value="1">1 star</option>
+              <option value="0">0 stars</option>
+            </select>
+            <textarea name="comment" ngModel>Type your comment here!</textarea>
+            <input type="submit" value="Rate!">
+          </form>
+        </div>
       </div>
     </div>
 
+
+    <!-- HARD CODED ONE (SO IT LOOKS PRETTY) -->
     <div class="row">
       <div class="col-50">
-        <img src="http://www.ricenflour.com/wp-content/uploads/2015/11/fruit-roll-cake.jpg">
+        <img src="https://cdn.stocksnap.io/img-thumbs/960w/ZURJJVB3DI.jpg">
       </div>
       <div class="col-50">
         <form class="list-form-group">

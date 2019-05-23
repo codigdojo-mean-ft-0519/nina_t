@@ -1,8 +1,8 @@
 export class Cake {
-  _id: number;
-  baker: string;
-  stars = 0;
-  rating;
+  _id: string;
+  bakedBy: string;
+  imageUrl: string;
+  rating: any;
   createdAt: number;
   updatedAt: number;
 }
