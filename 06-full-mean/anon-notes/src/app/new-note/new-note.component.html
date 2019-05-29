@@ -1,5 +1,7 @@
 <div class="new-note">
-  <label>Note:</label>
-  <input type="text" name="note">
-  <input type="submit" value="Add Note">
+  <form (submit)="addNote($event, noteForm)" #noteForm="ngForm" autocomplete="off">
+    <label>Note:</label>
+    <input type="text" name="note" [(ngModel)]="note.note">
+    <input type="submit" value="Add Note">
+  </form>
 </div>
