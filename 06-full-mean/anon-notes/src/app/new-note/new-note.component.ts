@@ -16,13 +16,20 @@ export class NewNoteComponent implements OnInit {
 
   ngOnInit() {}
 
-  addNote(event: Event, form: ngForm) {
+  addNote(event: Event, form: NgForm) {
     event.preventDefault();
     this.noteService.addNote(this.note).subscribe(createdNote => {
       console.log('We created the following note:', createdNote);
       this.notes.push(createdNote);
       this.note = new Note();
       form.reset();
+      this.getNotes();
+    });
+  }
+
+  getNotes() {
+    this.noteService.getNotes().subscribe(notesFromDB => {
+      this.notes = notesFromDB;
     });
   }
 }

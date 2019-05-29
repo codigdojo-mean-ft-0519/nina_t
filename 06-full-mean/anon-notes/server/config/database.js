@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const modelsPath = path.join(__dirname, '../models');
 
-mongoose.connect('mongodb://localhost/anon_notes', {
+mongoose.connect('mongodb://localhost/anon_notes1', {
   useNewUrlParser: true,
   useCreateIndex: true,
 });

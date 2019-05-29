@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NoteService } from '../note.service';
 import { Note } from '../note.model';
+import { getInjectionTokens } from '@angular/core/src/render3/discovery_utils';
 
 @Component({
   selector: 'app-note-list',
@@ -12,9 +13,13 @@ export class NoteListComponent implements OnInit {
 
   constructor(private noteService: NoteService) {}
 
-  ngOnInit() {
-    this.noteService.getNotes().subscribe(notes => {
-      this.notes = notes;
+  ngOnInit(): void {
+    this.getNotes();
+  }
+
+  getNotes() {
+    this.noteService.getNotes().subscribe(notesFromDB => {
+      this.notes = notesFromDB;
     });
   }
 }

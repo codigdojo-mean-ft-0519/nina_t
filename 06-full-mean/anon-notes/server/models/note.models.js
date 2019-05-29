@@ -10,7 +10,7 @@ const NoteSchema = new Schema({
     minlength: [3, "Note is too short"]
   }
 }, {
-  timestamp: true
+  timestamps: true
 })
 
 module.exports.NoteSchema = mongoose.model('Note', NoteSchema);
