@@ -1,0 +1,34 @@
+.new-note {
+  border: 2px solid black;
+  margin: 10px 10px 5px 10px;
+  padding: 5px 10px 5px 10px;
+  background-color: white;
+  height: 75px;
+  font-size: 0.8em;
+  line-height: 75px;
+}
+
+.new-note label {
+  font-size: 1.5em;
+}
+
+.new-note input[type=text] {
+  border: 2px solid black;
+  width: 80%;
+  font-size: 1em;
+  padding: 5px;
+}
+
+.new-note input[type=submit] {
+  background-color: forestgreen;
+  color: white;
+  font-size: 1em;
+  border: 1px solid black;
+  box-shadow: 2px 5px black;
+  margin: 0px 5px 0px 5px;
+  padding: 5px 20px 5px 20px;
+}
+
+.new-note input[type=submit]:hover {
+  background-color: darkgreen;
+}
