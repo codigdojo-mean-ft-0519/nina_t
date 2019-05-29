@@ -22,4 +22,8 @@ export class NoteListComponent implements OnInit {
       this.notes = notesFromDB;
     });
   }
+
+  onCreate(createdNote: Note) {
+    this.notes.unshift(createdNote);
+  }
 }

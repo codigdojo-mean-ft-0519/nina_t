@@ -10,7 +10,8 @@ import { NgForm } from '@angular/forms';
 })
 export class NewNoteComponent implements OnInit {
   note = new Note();
-  notes: Note[] = [];
+  @Output()
+  createdNote = new EventEmitter<Note>();
 
   constructor(private noteService: NoteService) {}
 
@@ -20,16 +21,10 @@ export class NewNoteComponent implements OnInit {
     event.preventDefault();
     this.noteService.addNote(this.note).subscribe(createdNote => {
       console.log('We created the following note:', createdNote);
-      this.notes.push(createdNote);
+      this.note = createdNote;
+      this.createdNote.emit(this.note);
       this.note = new Note();
       form.reset();
-      this.getNotes();
-    });
-  }
-
-  getNotes() {
-    this.noteService.getNotes().subscribe(notesFromDB => {
-      this.notes = notesFromDB;
     });
   }
 }

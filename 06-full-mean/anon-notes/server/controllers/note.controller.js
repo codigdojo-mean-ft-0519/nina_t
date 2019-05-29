@@ -4,6 +4,9 @@ const Note = mongoose.model('Note');
 module.exports = {
   index(request, response) {
     Note.find({})
+      .sort({
+        "createdAt": -1
+      })
       .then(notes => response.json(notes))
       .catch(error => response.json(error));
   },

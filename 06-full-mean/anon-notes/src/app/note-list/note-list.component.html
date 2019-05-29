@@ -1,10 +1,9 @@
 <div class="container">
   <h1>Anonymous Notes</h1>
-  <app-new-note></app-new-note>
+  <app-new-note (createdNote)="onCreate($event)"></app-new-note>
   <div class="notes-list">
-
     <div *ngFor="let note of notes" class="one-note">
-      <p class="timestamp">Noted on: {{note.createdAt}}
+      <p class="timestamp">Noted on: {{note.createdAt | date: 'medium' }}
       </p>
       <p class="note-content">
         {{note.note}}
